@@ -36,16 +36,24 @@ import scipy
 
 from . import landmarks
 from .logging import logger
+from PIL import Image
 
 
 def read_ims(names, img_thresh):
     count = 0
     total = 0
     prev_im = None
+    size = 1280, 1280
     for n in names:
         logger.debug("Reading image %s", n)
+
+        img = Image.open(n)
+        img.thumbnail(size, Image.ANTIALIAS)
+        img.save(n, 'JPEG', quality=100)
+
         im = cv2.imread(n)
-        if prev_im is None or numpy.linalg.norm(prev_im - im) > img_thresh:
+
+        if (prev_im is None or prev_im.shape != im.shape or numpy.linalg.norm(prev_im - im) > img_thresh):
             yield (n, im)
             count += 1
             prev_im = im
@@ -113,8 +121,6 @@ def get_ims_and_landmarks(images, landmark_finder):
             l = landmark_finder.get(im)
         except landmarks.NoFaces:
             logger.warn("No faces in image %s", n)
-        except landmarks.TooManyFaces:
-            logger.warn("Too many faces in image %s", n)
         else:
             yield (n, im, l)
             count += 1

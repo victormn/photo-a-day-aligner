@@ -99,15 +99,15 @@ if __name__ == "__main__":
         import appdirs
     except ImportError:
         logging.warn("appdirs not installed, not reading site/user config")
-    else:
-        config_paths.append(
-            os.path.join(
-                appdirs.user_config_dir(APP_NAME, APP_AUTHOR),
-                CONFIG_FILE_NAME))
-        config_paths.append(
-            os.path.join(
-                appdirs.site_config_dir(APP_NAME, APP_AUTHOR),
-                CONFIG_FILE_NAME))
+    # else:
+        # config_paths.append(
+        #     os.path.join(
+        #         appdirs.user_config_dir(APP_NAME, APP_AUTHOR),
+        #         CONFIG_FILE_NAME))
+        # config_paths.append(
+        #     os.path.join(
+        #         appdirs.site_config_dir(APP_NAME, APP_AUTHOR),
+        #         CONFIG_FILE_NAME))
     if cli_args.config:
         config_paths.append(cli_args.config)
 

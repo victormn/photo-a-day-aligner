@@ -2,19 +2,19 @@
 
 A tools to help with daily self-portrait projects:
 
+## `pada.py`
 
-* `pada.py` which has a couple of sub-commands:
- * `align`: Take a set of photo-a-day images, and align them based on the
-   detected face, and perform RGB scaling so that all the faces have the same
-   average RGB value. Also outputs an image `mask.png` which is used by the
-   next script. Duplicate images, images with no face, and images with more than
-   one face are dropped at this stage.
- * `framedrop`: Produce a file list, based on the output files of the above
-   script. The output will have approximately `(100 / N)` % of the input images
-   (`N` is `10` by default). Output frames are selected to avoid temporal
-   discontinuities in the face area.
-* `make_vid.sh`: A shell script which calls `mencoder` to encode the file list
-  produced by the above into a .h264 MP4 file.
+### align
+
+Take a set of photo-a-day images, and align them based on the detected face, and perform RGB scaling so that all the faces have the same average RGB value. Also outputs an image `mask.png` which is used by the next script. Duplicate images, images with no face, and images with more than one face are dropped at this stage.
+
+### framedrop
+
+Produce a file list, based on the output files of the abovescript. The output will have approximately `(100 / N)` % of the input images(`N` is `10` by default). Output frames are selected to avoid temporaldiscontinuities in the face area.
+
+## `make_vid.sh`
+
+A shell script which calls `mencoder` to encode the file list produced by the above into a .h264 MP4 file.
 
 See below for usage details.
 
@@ -22,19 +22,13 @@ See below for usage details.
 
 1. Create a directory for your project.
 
-2. Copy `examples/pada.conf` into it. Change `predictor_path` to point to your
-   dlib landmarks, [downloadable from here](http://sourceforge.net/projects/
-dclib/files/dlib/v18.10/shape_predictor_68_face_landmarks.dat.bz2).
+2. Copy `pada.conf.dist` into it, as `pada.conf`. Change `predictor_path` to point to your dlib landmarks, [downloadable from here](http://sourceforge.net/projects/dclib/files/dlib/v18.10/shape_predictor_68_face_landmarks.dat.bz2).
 
-3. Create a sub-directory `input`, and place your input frames into it. When
-   lexicographically sorted the file names should be in the correct order.
+3. Create a directory `input`, configure `pada.conf` with the path, and place your input frames into it. When lexicographically sorted the file names should be in the correct order.
 
-4. Run `pada.py align` to align and colour correct your input frames. At this
-   point you can inspect the output in `./aligned`. If the results are not
-   satisfactory change settings and repeat this step.
+4. Run `pada.py align` to align and colour correct your input frames. At this point you can inspect the output in `./aligned`. the results are not satisfactory change settings and repeat this step.
 
-5. Run `pada.py framedrop` to select a sequence of good frames and output them
-   to `filtered.txt`.
+5. Run `pada.py framedrop` to select a sequence of good frames and output them to `filtered.txt`.
 
 6. Run `make_vid.sh` to convert the above file list into a video, `output.mp4`.
 
@@ -94,9 +88,7 @@ General `pada.py` options:
       --frame-skip FRAME_SKIP
                             Ratio of input frames to output frames
 
-Options can alternatively be specified in a `pada.conf` in the working
-directory, in the site config path, or global config path. To see the full list
-of config paths run `pada.py print_config_paths`
+Options can alternatively be specified in a `pada.conf` in the working directory, in the site config path, or global config path. To see the full list of config paths run `pada.py print_config_paths`
 
 ## Requirements
 

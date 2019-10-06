@@ -1,0 +1,5 @@
+/data/*
+*.pyc
+divx2pass*
+output*
+pada.conf
