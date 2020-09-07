@@ -92,7 +92,7 @@ Options can alternatively be specified in a `pada.conf` in the working directory
 
 ## Requirements
 
-`pada.py` requires ``build-essential`, `cmake`, `pkg-config`, `libx11-dev`, `libatlas-base-dev`, `libgtk-3-dev`, `libboost-python-dev`, `libgl1-mesa-glx`, `libsm6`, `libxext6`, `numpy`, `scipy`, `matplotlib`, `scikit-image`, `scikit-learn`, `ipython`, `dlib`, `opencv-python`, `appdirs`, `ffmpeg` and `image`.
+`pada.py` requires `build-essential`, `cmake`, `pkg-config`, `libx11-dev`, `libatlas-base-dev`, `libgtk-3-dev`, `libboost-python-dev`, `libgl1-mesa-glx`, `libsm6`, `libxext6`, `numpy`, `scipy`, `matplotlib`, `scikit-image`, `scikit-learn`, `ipython`, `dlib`, `opencv-python`, `appdirs`, `ffmpeg` and `image`.
 
 `make_vid.sh` requires `mencoder` and suitable codecs to be installed.
 
