@@ -29,7 +29,7 @@ __all__ = (
 import cv2
 import dlib
 import numpy
-from .logging import logger
+from .log import logger
 
 class NoFaces(Exception):
     pass

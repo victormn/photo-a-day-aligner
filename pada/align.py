@@ -35,7 +35,7 @@ import numpy
 import scipy
 
 from . import landmarks
-from .logging import logger
+from .log import logger
 from PIL import Image
 
 
@@ -45,11 +45,14 @@ def read_ims(names, img_thresh):
     prev_im = None
     size = 1280, 1280
     for n in names:
-        logger.debug("Reading image %s", n)
+        logger.info("Reading image %s", n)
 
-        img = Image.open(n)
-        img.thumbnail(size, Image.ANTIALIAS)
-        img.save(n, 'JPEG', quality=100)
+        # TODO: discover why this code is producing
+        # images without faces
+        
+        # img = Image.open(n)
+        # img.thumbnail(size, Image.ANTIALIAS)
+        # img.save(n, 'JPEG', quality=100)
 
         im = cv2.imread(n)
 
@@ -58,7 +61,7 @@ def read_ims(names, img_thresh):
             count += 1
             prev_im = im
         else:
-            logger.debug("Ignoring %s as it is a duplicate", n)
+            logger.warn("Ignoring %s as it is a duplicate", n)
         total += 1
     logger.info("Read %s / %s images", count, total)
 

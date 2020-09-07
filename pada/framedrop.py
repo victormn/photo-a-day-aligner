@@ -34,7 +34,7 @@ import cv2
 import numpy
 
 from . import landmarks
-from .logging import logger
+from .log import logger
 
 
 def find_weights(names, mask, frame_skip):
