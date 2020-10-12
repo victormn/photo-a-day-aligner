@@ -18,6 +18,8 @@ A tools to help with daily self-portrait projects
 
 5. Run `make video` to convert the above file list into a video `data/output.mp4`.
 
+6. Run `make clear` to clean temp files.
+
 ## How to build and publish new pada image
 
 1. Change pada image version in Makefile
