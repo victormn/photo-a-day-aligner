@@ -1,14 +1,24 @@
 # Photo-a-day Aligner Makefile
 
-all:
-	docker build -t pada .
+build-align:
+	docker build -t pada-align -f Dockerfile.align .
 
-run:
-	docker run --name pada pada
+build-video:
+	docker build -t pada-video -f Dockerfile.video .
 
-copy:
-	docker cp pada:data/aligned data
-	docker cp pada:data/filtered.txt data
+run-align:
+	docker run --name pada-align pada-align
+
+run-video:
+	docker run --name pada-video pada-video
+
+copy-to-video:
+	docker cp pada-align:data/aligned data
+	docker cp pada-align:data/filtered.txt data
+
+copy-video:
+	docker cp pada-video:output.mp4 data
 
 clear:
-	docker rm pada
+	docker rm pada-align
+	docker rm pada-video
