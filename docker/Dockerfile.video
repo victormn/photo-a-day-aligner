@@ -1,7 +1,4 @@
-FROM python:3
-
-RUN apt-get update
-RUN apt-get install mencoder -y
+FROM victormnunes/pada:1.0.0
 
 ADD scripts/make_vid.sh /
 ADD data/aligned /data/aligned
