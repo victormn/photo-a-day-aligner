@@ -3,6 +3,7 @@ FROM victormnunes/pada:1.0.0
 ADD pada.py /
 ADD pada.conf /
 ADD pada /pada
-ADD data /data
+ADD data/input /data/input
+ADD data/shape_predictor_68_face_landmarks.dat /data/
 
 CMD [ "sh", "-c", "python ./pada.py align && python ./pada.py framedrop" ]

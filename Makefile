@@ -19,6 +19,19 @@ build-align:
 run-align:
 	docker run --name pada-align pada-align
 
+copy-align:
+	docker cp pada-align:data/aligned data
+	docker cp pada-align:data/filtered.txt data
+
+clear-align:
+	docker rm pada-align
+
+align:
+	make build-align
+	make run-align
+	make copy-align
+	make clear-align
+
 # VIDEO
 build-video:
 	docker build -t pada-video -f docker/Dockerfile.video .
@@ -26,15 +39,20 @@ build-video:
 run-video:
 	docker run --name pada-video pada-video
 
-# COPY
-copy-to-video:
-	docker cp pada-align:data/aligned data
-	docker cp pada-align:data/filtered.txt data
-
 copy-video:
 	docker cp pada-video:output.mp4 data
 
-# CLEAR
-clear:
-	docker rm pada-align
+clear-video:
 	docker rm pada-video
+
+video:
+	make build-video
+	make run-video
+	make copy-video
+	make clear-video
+
+# UTILS
+clear:
+	rm -rf data/aligned
+	rm data/output.mp4
+	rm data/filtered.txt

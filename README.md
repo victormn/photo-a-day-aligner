@@ -1,38 +1,40 @@
 # Photo-a-day Aligner 
 
-A tools to help with daily self-portrait projects:
+A tools to help with daily self-portrait projects
 
-## `pada.py`
+## Requirements
 
-### align
+`docker` and suitable codecs for video.
 
-Take a set of photo-a-day images, and align them based on the detected face, and perform RGB scaling so that all the faces have the same average RGB value. Also outputs an image `mask.png` which is used by the next script. Duplicate images, images with no face, and images with more than one face are dropped at this stage.
-
-### framedrop
-
-Produce a file list, based on the output files of the abovescript. The output will have approximately `(100 / N)` % of the input images(`N` is `10` by default). Output frames are selected to avoid temporaldiscontinuities in the face area.
-
-## `make_vid.sh`
-
-A shell script which calls `mencoder` to encode the file list produced by the above into a .h264 MP4 file.
-
-See below for usage details.
-
-## Recommended workflow
+## How to use
 
 1. Create a directory for your project.
 
 2. Copy `pada.conf.dist` into it, as `pada.conf`. Change `predictor_path` to point to your dlib landmarks, [downloadable from here](http://sourceforge.net/projects/dclib/files/dlib/v18.10/shape_predictor_68_face_landmarks.dat.bz2).
 
-3. Create a directory `input`, configure `pada.conf` with the path, and place your input frames into it. When lexicographically sorted the file names should be in the correct order.
+3. Create a directory `data/input`, configure `pada.conf` with the path, and place your input frames into it. When lexicographically sorted the file names should be in the correct order.
 
-4. Run `pada.py align` to align and colour correct your input frames. At this point you can inspect the output in `./aligned`. the results are not satisfactory change settings and repeat this step.
+4. Run `make align` to run `align` and `framedrop`. At this point you can inspect the output in `/data/aligned` and `/data/filtered.txt`. If the results are not satisfactory change settings and repeat this step.
 
-5. Run `pada.py framedrop` to select a sequence of good frames and output them to `filtered.txt`.
+5. Run `make video` to convert the above file list into a video `data/output.mp4`.
 
-6. Run `make_vid.sh` to convert the above file list into a video, `output.mp4`.
+## How it works
 
-## Usage
+### `pada.py` align
+
+Take a set of photo-a-day images, and align them based on the detected face, and perform RGB scaling so that all the faces have the same average RGB value. Also outputs an image `mask.png` which is used by the next script. Duplicate images and images with no face are dropped at this stage. The biggest face is usend in images with more than one face.
+
+### `pada.py` framedrop
+
+Produce a file list, based on the output files of the abovescript. The output will have approximately `(100 / N)` % of the input images(`N` is `10` by default). Output frames are selected to avoid temporaldiscontinuities in the face area.
+
+### `scripts/make_vid.sh`
+
+A shell script which calls `mencoder` to encode the file list produced by the above into a .h264 MP4 file.
+
+See below for usage details.
+
+## Options
 
 General `pada.py` options:
 
@@ -89,10 +91,3 @@ General `pada.py` options:
                             Ratio of input frames to output frames
 
 Options can alternatively be specified in a `pada.conf` in the working directory, in the site config path, or global config path. To see the full list of config paths run `pada.py print_config_paths`
-
-## Requirements
-
-`pada.py` requires `build-essential`, `cmake`, `pkg-config`, `libx11-dev`, `libatlas-base-dev`, `libgtk-3-dev`, `libboost-python-dev`, `libgl1-mesa-glx`, `libsm6`, `libxext6`, `numpy`, `scipy`, `matplotlib`, `scikit-image`, `scikit-learn`, `ipython`, `dlib`, `opencv-python`, `appdirs`, `ffmpeg` and `image`.
-
-`make_vid.sh` requires `mencoder` and suitable codecs to be installed.
-
