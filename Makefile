@@ -60,5 +60,4 @@ video:
 # UTILS
 clear:
 	rm -rf data/aligned
-	rm data/output.mp4
 	rm data/filtered.txt
