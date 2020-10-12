@@ -10,13 +10,21 @@ A tools to help with daily self-portrait projects
 
 1. Create a directory for your project.
 
-2. Copy `pada.conf.dist` into it, as `pada.conf`. Change `predictor_path` to point to your dlib landmarks, [downloadable from here](http://sourceforge.net/projects/dclib/files/dlib/v18.10/shape_predictor_68_face_landmarks.dat.bz2).
+2. Copy `pada.conf.dist` into it, as `pada.conf`.
 
 3. Create a directory `data/input`, configure `pada.conf` with the path, and place your input frames into it. When lexicographically sorted the file names should be in the correct order.
 
 4. Run `make align` to run `align` and `framedrop`. At this point you can inspect the output in `/data/aligned` and `/data/filtered.txt`. If the results are not satisfactory change settings and repeat this step.
 
 5. Run `make video` to convert the above file list into a video `data/output.mp4`.
+
+## How to build and publish new pada image
+
+1. Change pada image version in Makefile
+
+2. [Download](http://sourceforge.net/projects/dclib/files/dlib/v18.10/shape_predictor_68_face_landmarks.dat.bz2) dlib landmarks and save in `/data/`
+
+3. Run `make publish`
 
 ## How it works
 

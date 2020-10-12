@@ -1,16 +1,22 @@
 # Photo-a-day Aligner Makefile
 
 # PADA IMAGE
-PADA_VERSION=1.0.0
+PADA_VERSION=1.1.0
 
 build-pada:
-	docker build -t pada -f docker/Dockerfile.pada .
+	docker build -t victormnunes/pada -f docker/Dockerfile.pada .
 
 tag-pada:
-	docker image tag pada:latest victormnunes/pada:${PADA_VERSION}
+	docker image tag victormnunes/pada:latest victormnunes/pada:${PADA_VERSION}
 
 push-pada:
+	docker push victormnunes/pada:latest
 	docker push victormnunes/pada:${PADA_VERSION}
+
+publish:
+	make build-pada
+	make tag-pada
+	make push-pada
 
 # ALIGN
 build-align:

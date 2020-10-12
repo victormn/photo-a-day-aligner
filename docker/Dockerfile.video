@@ -1,4 +1,4 @@
-FROM victormnunes/pada:1.0.0
+FROM victormnunes/pada:latest
 
 ADD scripts/make_vid.sh /
 ADD data/aligned /data/aligned

@@ -24,3 +24,5 @@ RUN pip install opencv-python
 RUN pip install appdirs
 RUN pip install ffmpeg
 RUN pip install image
+
+ADD data/shape_predictor_68_face_landmarks.dat /data/
