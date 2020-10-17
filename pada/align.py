@@ -58,13 +58,16 @@ def read_ims(names, img_thresh):
         # Rotate image if needed
         img_exif = img.getexif()
         if img_exif:
-            exif=dict(img.getexif().items())
-            if exif[orientation] == 3 : 
-                img=img.rotate(180, expand=True)
-            elif exif[orientation] == 6 : 
-                img=img.rotate(270, expand=True)
-            elif exif[orientation] == 8 : 
-                img=img.rotate(90, expand=True)
+            try:
+                exif=dict(img.getexif().items())
+                if exif[orientation] == 3 :
+                    img=img.rotate(180, expand=True)
+                elif exif[orientation] == 6 :
+                    img=img.rotate(270, expand=True)
+                elif exif[orientation] == 8 :
+                    img=img.rotate(90, expand=True)
+            except KeyError:
+                pass
 
         # Resizing for larger images
         img.thumbnail(size, Image.ANTIALIAS)
