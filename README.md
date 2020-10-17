@@ -14,11 +14,13 @@ A tools to help with daily self-portrait projects
 
 3. Create a directory `data/input`, configure `pada.conf` with the path, and place your input frames into it. When lexicographically sorted the file names should be in the correct order.
 
-4. Run `make align` to run `align` and `framedrop`. At this point you can inspect the output in `/data/aligned` and `/data/filtered.txt`. If the results are not satisfactory change settings and repeat this step.
+4. Run `make align` to run `align`. At this point you can inspect the output in `/data/aligned`.
 
-5. Run `make video` to convert the above file list into a video `data/output.mp4`.
+5. Run `make framedrop` to run `framedrop`. At this point you can inspect the output in `/data/filtered.txt`. If the results are not satisfactory change settings and repeat this step.
 
-6. Run `make clear` to clean temp files.
+6. Run `make video` to convert the above file list into a video `data/output.mp4`.
+
+7. Run `make clear` to clean temp files.
 
 ## How to build and publish new pada image
 

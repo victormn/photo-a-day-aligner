@@ -27,7 +27,6 @@ run-align:
 
 copy-align:
 	docker cp pada-align:data/aligned data
-	docker cp pada-align:data/filtered.txt data
 
 clear-align:
 	docker rm pada-align
@@ -37,6 +36,25 @@ align:
 	make run-align
 	make copy-align
 	make clear-align
+
+# FRAMEDROP
+build-framedrop:
+	docker build -t pada-framedrop -f docker/Dockerfile.framedrop .
+
+run-framedrop:
+	docker run --name pada-framedrop pada-framedrop
+
+copy-framedrop:
+	docker cp pada-framedrop:data/filtered.txt data
+
+clear-framedrop:
+	docker rm pada-framedrop
+
+framedrop:
+	make build-framedrop
+	make run-framedrop
+	make copy-framedrop
+	make clear-framedrop
 
 # VIDEO
 build-video:

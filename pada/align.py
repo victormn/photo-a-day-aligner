@@ -28,6 +28,7 @@ __all__ = (
 
 import glob
 import os
+import time
 
 import cv2
 import dlib
@@ -41,11 +42,12 @@ from PIL import Image
 
 def read_ims(names, img_thresh):
     count = 0
-    total = 0
+    processed = 0
+    total = len(names)
     prev_im = None
     size = 1280, 1280
     for n in names:
-        logger.info("Reading image %s", n)
+        start_time = time.time()
 
         # TODO: discover why this code is producing
         # images without faces
@@ -62,8 +64,10 @@ def read_ims(names, img_thresh):
             prev_im = im
         else:
             logger.warn("Ignoring %s as it is a duplicate", n)
-        total += 1
-    logger.info("Read %s / %s images", count, total)
+        
+        processed += 1
+        logger.info("Processed %s [%d/%d] [%s%%] [%ss]", n, processed, total, (processed)/total*100, time.time()-start_time)
+    logger.info("Read %s / %s images", count, processed)
 
 
 def orthogonal_procrustes(points1, points2):

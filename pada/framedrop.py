@@ -144,7 +144,7 @@ def filter_files(input_files, frame_skip, erode_amount, landmark_finder):
     for n in path:
         yield n
 
-    logger.info("Kept %s / %s (%s %%) frames", 
+    logger.info("Kept %s/%s [%s%%] frames", 
                                            len(path), len(input_files),
                                            100. * len(path) / len(input_files))
 

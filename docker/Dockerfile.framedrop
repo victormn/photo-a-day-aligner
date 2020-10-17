@@ -1,0 +1,8 @@
+FROM victormnunes/pada:latest
+
+ADD pada.py /
+ADD pada.conf /
+ADD pada /pada
+ADD data/aligned /data/aligned
+
+CMD [ "sh", "-c", "python ./pada.py framedrop" ]

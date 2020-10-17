@@ -5,4 +5,4 @@ ADD pada.conf /
 ADD pada /pada
 ADD data/input /data/input
 
-CMD [ "sh", "-c", "python ./pada.py align && python ./pada.py framedrop" ]
+CMD [ "sh", "-c", "python ./pada.py align" ]
