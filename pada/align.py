@@ -37,8 +37,7 @@ import scipy
 
 from . import landmarks
 from .log import logger
-from PIL import Image
-
+from PIL import Image, ExifTags
 
 def read_ims(names, img_thresh):
     count = 0
@@ -46,15 +45,30 @@ def read_ims(names, img_thresh):
     total = len(names)
     prev_im = None
     size = 1280, 1280
+
+    # Used for rotation, if needed
+    for orientation in ExifTags.TAGS.keys() : 
+        if ExifTags.TAGS[orientation]=='Orientation' : break 
+
     for n in names:
         start_time = time.time()
 
-        # TODO: discover why this code is producing
-        # images without faces
-        
-        # img = Image.open(n)
-        # img.thumbnail(size, Image.ANTIALIAS)
-        # img.save(n, 'JPEG', quality=100)
+        img = Image.open(n)
+
+        # Rotate image if needed
+        img_exif = img.getexif()
+        if img_exif:
+            exif=dict(img.getexif().items())
+            if exif[orientation] == 3 : 
+                img=img.rotate(180, expand=True)
+            elif exif[orientation] == 6 : 
+                img=img.rotate(270, expand=True)
+            elif exif[orientation] == 8 : 
+                img=img.rotate(90, expand=True)
+
+        # Resizing for larger images
+        img.thumbnail(size, Image.ANTIALIAS)
+        img.save(n, 'JPEG', quality=100)
 
         im = cv2.imread(n)
 
@@ -66,7 +80,7 @@ def read_ims(names, img_thresh):
             logger.warn("Ignoring %s as it is a duplicate", n)
         
         processed += 1
-        logger.info("Processed %s [%d/%d] [%s%%] [%ss]", n, processed, total, (processed)/total*100, time.time()-start_time)
+        logger.info("Processed %s [%d/%d] [%0.2f%%] [%0.2fs]", n, processed, total, (processed)/total*100, time.time()-start_time)
     logger.info("Read %s / %s images", count, processed)
 
 
